@@ -1,0 +1,41 @@
+<html>
+<head>
+    <title>Base64 Encoder</title>
+    <style>
+    body {
+        background-color: #eee;
+    }
+    </style>
+</head>
+<body>
+<div style="text-align:center;padding-top:10%;">
+    <input type="file" id="myFile">
+    <br><br>
+    <button type="button" onclick="encodeBase64()">Encode to Base64</button>
+    <br><br>
+    <!-- <font style="font-family:sans-serif;">Base64:</font><br> -->
+    <textarea rows="15" cols="50" id="textBox"></textarea>
+</div>
+<script>
+    console.log('by faye :3');
+
+    function encodeBase64() {
+        var filePath = document.getElementById("myFile").files[0];
+
+        fileReader = new FileReader();
+        fileReader.readAsDataURL(filePath);
+        fileReader.onload = function () {
+            var re = new RegExp(';base64,');
+            var results = fileReader.result.toString();
+            var matchIndex = re.exec(results).index + 8;
+            base64String = results.substring(matchIndex);
+            document.getElementById("textBox").innerHTML = base64String;
+            console.log('Done converting to Base64.')
+        };
+        fileReader.onerror = function() {
+            console.log('Error:' + error);
+        };
+    }
+</script>
+</body>
+</html>
